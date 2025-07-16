@@ -1,16 +1,18 @@
 class Bird{
     x= 100;
     y= 100;
-    size= 25;
+    size= 22;
     velocity=0.5;
-    gravity=0.2;
-    flapVelocity=5;
+    gravity=0.120;
+    flapVelocity=4;
     life=1;
     #image;
     imageFile="./img/bird.png";
-    flapSoundFile="./wav/flap.wav";
-    dieSoundFile='./wav/die.wav';
-    hitSoundFile='./wav/hit.wav';
+    flapSoundFile="./wav/flap.MP3";
+    dieSoundFile='./wav/die.MP3';
+    hitSoundFile='./wav/hit.MP3';
+    scoreSoundFile = "./wav/score.MP3";  
+    scoreSound;
     flapSound;
     dieSound;
     hitSound;
@@ -24,13 +26,19 @@ class Bird{
         this.dieSound.src = this.dieSoundFile;
         this.hitSound = new Audio();
         this.hitSound.src = this.hitSoundFile;
+        this.scoreSound = new Audio();
+        this.scoreSound.src = this.scoreSoundFile;
     }
     draw(){
         //eCtx.drawImage(this.#image, this.x, this.y,this.size,this.size); 
         let i = Math.round(this.frames/5);
         eCtx.drawImage(this.#image,180*i,0,140,145,this.x,this.y,this.size,this.size);      
-        this.y+=this.velocity;
-        this.velocity+=this.gravity;
+        if (gameState === "playing") {
+    this.y += this.velocity;
+    this.velocity += this.gravity;
+    }
+
+    
         this.frames++;
         if (this.frames == 40) 
             this.frames = 0     
